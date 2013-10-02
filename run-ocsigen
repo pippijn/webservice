@@ -1,0 +1,29 @@
+#!/usr/bin/env perl
+
+use common::sense;
+use Dir::Self;
+
+chdir __DIR__;
+
+my $pid;
+
+$SIG{INT} = sub { exit };
+END { kill 2, $pid; waitpid $pid, 0 }
+
+sub start {
+   exec "ocsigenserver.opt", "-c", "service.xml"
+      unless $pid = fork
+}
+
+open my $events, '-|', qw|inotifywait -q -m -e close_write ../../../_install/lib/ocaml/webservice/webservice.cma|
+   or die "could not execute inotifywait: $!";
+
+say "starting webserver";
+start;
+
+while (my $event = <$events>) {
+   kill 2, $pid or die $!;
+   waitpid $pid, 0 or die $!;
+
+   start
+}

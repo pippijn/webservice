@@ -15,7 +15,7 @@
     
     <host hostfilter="*">
       <static dir="local/www" />
-      <eliommodule module="_install/lib/ocaml/webservice/webservice.cma" />
+      <eliommodule module="../../../_install/lib/ocaml/webservice/webservice.cma" />
       <eliom/>
     </host>
   </server>
