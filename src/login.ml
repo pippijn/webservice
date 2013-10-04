@@ -5,27 +5,21 @@ let register_service =
   Json_registration.register_service Json.t<unit>
     ~path:["register"] ~get_params:Eliom_parameter.(string "user" ** string "pass")
     (fun (username, password) () ->
-      lwt () = UserService.register username password in
-      return ()
-    )
+      UserService.register username password)
 
 
 let login_service =
   Json_registration.register_service Json.t<unit>
     ~path:["login"] ~get_params:Eliom_parameter.(string "user" ** string "pass")
     (fun (username, password) () ->
-      lwt () = UserService.login username password in
-      return ()
-    )
+      UserService.login username password)
 
 
 let logout_service =
   Json_registration.register_user_service Json.t<unit>
     ~path:["logout"] ~get_params:Eliom_parameter.unit
     (fun username () () ->
-      UserService.logout ();
-      return ()
-    )
+      return (UserService.logout ()))
 
 
 type data = {
