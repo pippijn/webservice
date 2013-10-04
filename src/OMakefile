@@ -1,0 +1,24 @@
+Name = webservice
+Description = Test webservice
+
+OCaml-Sources[] =
+  Json_registration
+  UserService
+  Login
+
+OCaml-Requires[] =
+  eliom.server
+  js_of_ocaml.deriving.syntax
+  lwt.syntax
+  safepass
+
+Flags. +=
+  $|json_registration.ml| = -syntax camlp4o
+  $|userService.ml| = -syntax camlp4o
+  $|login.ml| = -syntax camlp4o
+
+OM_OCAML_CFLAGS = -thread
+OM_OCAML_LDFLAGS = -thread
+
+TARGET = $(library-install)
+.DEFAULT: $(TARGET)
