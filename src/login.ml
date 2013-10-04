@@ -19,7 +19,7 @@ let logout_service =
   Json_registration.register_user_service Json.t<unit>
     ~path:["logout"] ~get_params:Eliom_parameter.unit
     (fun user () () ->
-      return (UserService.logout ()))
+      return @@ UserService.logout ())
 
 
 type data = {
