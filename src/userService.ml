@@ -38,12 +38,12 @@ let login username password =
   let login = Eliom_reference.Volatile.get user in
   match login with
   | Some user ->
-      die (E.Already_logged_in user)
+      die (E.Already_logged_in User.(user.id))
   | None ->
       lwt users' = Eliom_reference.get users in
       try
         if Bcrypt.verify password (List.assoc username users') then (
-          Eliom_reference.Volatile.set user (Some username);
+          Eliom_reference.Volatile.set user (Some { User.id = username });
           Lwt.return ()
         ) else (
           die E.Bad_credentials

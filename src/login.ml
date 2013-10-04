@@ -18,7 +18,7 @@ let login_service =
 let logout_service =
   Json_registration.register_user_service Json.t<unit>
     ~path:["logout"] ~get_params:Eliom_parameter.unit
-    (fun username () () ->
+    (fun user () () ->
       return (UserService.logout ()))
 
 
@@ -32,6 +32,9 @@ type data = {
 let hello_service =
   Json_registration.register_user_service Json.t<data>
     ~path:["hello"] ~get_params:Eliom_parameter.unit
-    (fun username () () ->
-      return { username; password = "dunno"; stuff = 300; }
-    )
+    (fun user () () ->
+      return {
+        username = User.(user.id);
+        password = "dunno";
+        stuff = 300;
+      })

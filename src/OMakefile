@@ -3,8 +3,9 @@ Description = Test webservice
 
 OCaml-Sources[] =
   Json_registration
-  UserService
   Login
+  User
+  UserService
 
 OCaml-Requires[] =
   eliom.server
