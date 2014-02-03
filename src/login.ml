@@ -1,23 +1,27 @@
+open Eliom
 open Lwt
 
 
 let register_service =
   Json_registration.register_service Json.t<unit>
-    ~path:["register"] ~get_params:Eliom_parameter.(string "user" ** string "pass")
+    ~path:["register"]
+    ~get_params:Parameter.(string "user" ** string "pass")
     (fun (username, password) () ->
       UserService.register username password)
 
 
 let login_service =
   Json_registration.register_service Json.t<unit>
-    ~path:["login"] ~get_params:Eliom_parameter.(string "user" ** string "pass")
+    ~path:["login"]
+    ~get_params:Parameter.(string "user" ** string "pass")
     (fun (username, password) () ->
       UserService.login username password)
 
 
 let logout_service =
   Json_registration.register_user_service Json.t<unit>
-    ~path:["logout"] ~get_params:Eliom_parameter.unit
+    ~path:["logout"]
+    ~get_params:Parameter.unit
     (fun user () () ->
       return @@ UserService.logout ())
 
@@ -31,7 +35,8 @@ type data = {
 
 let hello_service =
   Json_registration.register_user_service Json.t<data>
-    ~path:["hello"] ~get_params:Eliom_parameter.unit
+    ~path:["hello"]
+    ~get_params:Parameter.unit
     (fun user () () ->
       return {
         username = User.(user.id);

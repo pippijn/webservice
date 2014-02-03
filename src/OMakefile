@@ -1,7 +1,8 @@
-Name = webservice
-Description = Test webservice
+Name		= webservice
+Description	= Test webservice
 
 OCaml-Sources[] =
+  Eliom
   Json_registration
   Login
   User
@@ -14,12 +15,12 @@ OCaml-Requires[] =
   safepass
 
 Flags. +=
-  $|json_registration.ml| = -syntax camlp4o
-  $|userService.ml| = -syntax camlp4o
-  $|login.ml| = -syntax camlp4o
+  $|json_registration.ml|	= -syntax camlp4o
+  $|userService.ml|		= -syntax camlp4o
+  $|login.ml|			= -syntax camlp4o
 
-OM_OCAML_CFLAGS = -thread
-OM_OCAML_LDFLAGS = -thread
+OM_OCAML_CFLAGS		= -thread
+OM_OCAML_LDFLAGS	= -thread
 
 TARGET = $(library-install)
 .DEFAULT: $(TARGET)
